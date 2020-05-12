@@ -1,14 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const app = express();
+
 const config = require("./config");
 
 const userRoutes = require("./routes/user");
 
-// mongoose.set("useCreateIndex", true);
+mongoose.set("useCreateIndex", true);
 mongoose
   .connect(
-    `mongodb+srv://${config.user}:${config.password}@cluster-fuqu4.mongodb.net/test?retryWrites=true&w=majority`,
+    `mongodb+srv://${config.user}:${config.password}@cluster-fuqu4.mongodb.net/mel_gp?retryWrites=true&w=majority`,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
@@ -17,6 +19,13 @@ mongoose
   .catch((err) => {
     console.log("Connection Failed!", err);
   });
+
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
 app.use((err, req, res, next) => {
   res.status(500).json({ message: err.message });
