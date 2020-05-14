@@ -21,6 +21,18 @@ exports.getUserByID = async (req, res) => {
   }
 };
 
+exports.updateUser = async (req, res) => {
+  try {
+    const updateById = await User.updateOne(
+      { _id: req.params.id },
+      { $set: { name: req.body.name } }
+    );
+    res.json(updateById);
+  } catch (err) {
+    res.json({ message: err });
+  }
+};
+
 exports.createUser = async (req, res) => {
   const hashedPassword = bcrypt.hashSync(req.body.password, 10);
   const emailLowerCase = req.body.email.toLowerCase();
@@ -44,5 +56,14 @@ exports.createUser = async (req, res) => {
     });
   } catch (err) {
     res.json({ message: `Creating User Failed, ${err}` });
+  }
+};
+
+exports.deleteUserById = async (req, res) => {
+  try {
+    const userDeleted = await User.deleteOne({ _id: req.params.id });
+    res.json(userDeleted);
+  } catch (err) {
+    res.json({ message: err });
   }
 };
