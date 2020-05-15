@@ -7,6 +7,7 @@ const cors = require("cors");
 const config = require("./config");
 
 const userRoutes = require("./routes/user");
+const appointmentRoutes = require("./routes/appointment");
 
 mongoose.set("useCreateIndex", true);
 mongoose
@@ -28,22 +29,9 @@ app.use(
   })
 );
 
-// app.use((err, req, res, next) => {
-//   res.status(500).json({ message: err.message });
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-//   );
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, PATCH, PUT, DELETE, OPTIONS"
-//   );
-//   next();
-// });
-
 app.use(cors());
 
 app.use("/api/user", userRoutes);
+app.use("/api/appointment", appointmentRoutes);
 
 module.exports = app;
