@@ -1,13 +1,16 @@
 const express = require("express");
 const router = express.Router();
 
+// const auth = require("../middleware/verifyToken");
 const UserController = require("../controllers/user");
 
 router.get("", UserController.getAllUsers);
 
 router.get("/:id", UserController.getUserByID);
 
-router.post("", UserController.createUser);
+router.post("/login", UserController.login);
+
+router.post("/signup", UserController.signup);
 
 router.patch("/:id", UserController.updateUser);
 
