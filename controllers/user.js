@@ -44,15 +44,27 @@ exports.login = async (req, res) => {
 };
 
 exports.signup = async (req, res) => {
-  const hashedPassword = bcrypt.hashSync(req.body.password, 10);
-  const emailLowerCase = req.body.email.toLowerCase();
+  const { error } = userSignUpValidation(req.body.userInfo);
+  if (error) return res.status(400).send(error.details[0].message);
+  const {
+    firstName,
+    surname,
+    email,
+    password,
+    dateOfBirth,
+    address,
+    role,
+  } = req.body.userInfo;
+  const hashedPassword = bcrypt.hashSync(password, 10);
+  const emailLowerCase = email.toLowerCase();
   const user = new User({
-    name: req.body.name,
+    firstName: firstName,
+    surname: surname,
     email: emailLowerCase,
     password: hashedPassword,
-    dateOfBirth: req.body.dateOfBirth,
-    address: req.body.address,
-    role: req.body.role,
+    dateOfBirth: dateOfBirth,
+    address: address,
+    role: role,
   });
   try {
     const userCreated = await user.save();

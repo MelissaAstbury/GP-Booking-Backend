@@ -11,10 +11,12 @@ exports.getAllAppointments = async (req, res) => {
   }
 };
 
-exports.getAppointmentByID = async (req, res) => {
+exports.getAppointmentByCreatorID = async (req, res) => {
   try {
-    const allAppointmentsById = await Appointment.findById(req.params.id);
-    res.json(allAppointmentsById);
+    const appointments = await Appointment.find({
+      creator: { $in: [mongoose.Types.ObjectId(req.params.id)] },
+    });
+    res.json(appointments);
   } catch (err) {
     res.json({ message: err });
   }
