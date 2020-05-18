@@ -35,13 +35,17 @@ exports.updateAppointment = async (req, res) => {
 };
 
 exports.createAppointment = async (req, res) => {
+  const {
+    title,
+    appointmentDate,
+    description,
+    creator,
+  } = req.body.appointmentInfo;
   const appointment = new Appointment({
-    title: req.body.title,
-    appointmentDate: req.body.appointmentDate,
-    description: req.body.description,
-    notes: req.body.notes,
-    prescription: req.body.prescription,
-    creator: mongoose.Types.ObjectId(req.body.userId),
+    title: title,
+    appointmentDate: appointmentDate,
+    description: description,
+    creator: creator,
   });
   try {
     const appointmentCreated = await appointment.save();

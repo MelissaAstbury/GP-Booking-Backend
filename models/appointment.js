@@ -18,7 +18,7 @@ const appointmentSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  dateRequested: {
+  dateAppointmentCreated: {
     type: Date,
     required: true,
     default: Date.now,
@@ -34,12 +34,12 @@ const appointmentSchema = mongoose.Schema({
     required: true,
     min: 25,
     max: 500,
+    default: "Please replace this with patient appointment related notes",
   },
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
     required: true,
-    // userSchema,
   },
   prescription: [
     {
