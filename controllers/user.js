@@ -82,9 +82,9 @@ exports.signup = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const updateById = await User.updateOne(
+    const updateById = await User.findByIdAndUpdate(
       { _id: req.params.id },
-      { $set: { name: req.body.name } }
+      { $set: req.body.userInfo }
     );
     res.json(updateById);
   } catch (err) {
