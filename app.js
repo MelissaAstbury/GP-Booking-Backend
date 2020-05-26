@@ -8,6 +8,7 @@ const config = require("./config");
 
 const userRoutes = require("./routes/user");
 const appointmentRoutes = require("./routes/appointment");
+const prescriptionRoutes = require("./routes/prescription");
 
 mongoose.set("useCreateIndex", true);
 mongoose
@@ -33,5 +34,6 @@ app.use(cors());
 
 app.use("/api/user", userRoutes);
 app.use("/api/appointment", appointmentRoutes);
+app.use("/api/prescription", prescriptionRoutes);
 
 module.exports = app;
